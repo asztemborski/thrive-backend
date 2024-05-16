@@ -1,0 +1,66 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres-db
+    ports:
+      - '5432:5432'
+    networks:
+      - backend
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    build:
+      context: .
+      dockerfile: ./rabbitmq/Dockerfile
+    hostname: rabbitmq
+    volumes:
+      - /var/lib/rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - backend
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:15672" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - '3100:3100'
+    depends_on:
+      - auth-service
+    networks:
+      - backend
+  auth-service:
+    container_name: auth-service
+    build:
+      context: .
+      dockerfile: apps/auth/Dockerfile
+      target: development
+    command: pnpm run start:dev auth
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - '3101:3101'
+    networks:
+      - backend
+    env_file:
+      - .env
+      - ${AUTH_ENV}
+    volumes:
+      - .:/usr/src/app
+
+networks:
+  backend:
+    driver: bridge

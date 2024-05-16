@@ -1,0 +1,26 @@
+{
+  "name": "@thrive/auth",
+  "version": "1.0.0",
+  "description": "Authentication service for thrive app",
+  "author": "Igor Asztemborski",
+  "main": "index.js",
+  "scripts": {
+    "generate": "drizzle-kit generate:pg"
+  },
+  "dependencies": {
+    "@nestjs/cqrs": "^10.2.7",
+    "@nestjs/jwt": "^10.2.0",
+    "amqp-connection-manager": "^4.1.14",
+    "amqplib": "^0.10.4",
+    "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "ms": "3.0.0-canary.1",
+    "passport-jwt": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/passport-jwt": "^4.0.1",
+    "drizzle-kit": "^0.20.18"
+  }
+}

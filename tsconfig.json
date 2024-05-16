@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
+    "paths": {
+      "@libs/database": [
+        "libs/database/src"
+      ],
+      "@libs/database/*": [
+        "libs/database/src/*"
+      ],
+      "@libs/api": [
+        "libs/api/src"
+      ],
+      "@libs/api/*": [
+        "libs/api/src/*"
+      ],
+      "@libs/exceptions": [
+        "libs/exceptions/src"
+      ],
+      "@libs/exceptions/*": [
+        "libs/exceptions/src/*"
+      ],
+      "@libs/ddd": [
+        "libs/ddd/src"
+      ],
+      "@libs/ddd/*": [
+        "libs/ddd/src/*"
+      ],
+      "@libs/utilities": [
+        "libs/utilities/src"
+      ],
+      "@libs/utilities/*": [
+        "libs/utilities/src/*"
+      ]
+    }
+  }
+}

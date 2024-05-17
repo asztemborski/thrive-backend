@@ -48,7 +48,7 @@ export class User extends AggregateRoot<UserProperties> {
     return this.properties.username.value;
   }
 
-  get refreshTokens(): RefreshToken[] {
+  get refreshTokens(): readonly RefreshToken[] {
     return this.properties.refreshTokens;
   }
 

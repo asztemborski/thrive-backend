@@ -18,12 +18,9 @@ export class UserRepository implements IUserRepository {
   async getByEmail(email: string): Promise<User | undefined> {
     const user = await this.database.query.users.findFirst({
       where: (user) => eq(user.emailAddress, email),
-      with: {
-        refreshTokens: true,
-      },
     });
 
-    return user ? this.userMapper.toDomain(user) : undefined;
+    return user ? this.userMapper.toDomain({ ...user, refreshTokens: [] }) : undefined;
   }
 
   async insert(user: User): Promise<void> {

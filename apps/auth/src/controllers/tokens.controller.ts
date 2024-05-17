@@ -1,8 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
-import { SignInCommand } from '../commands/sign-in.command';
 import { SignInRequestDto, AuthTokensDto } from '../dtos';
+import { SignInCommand } from '../commands/sign-in';
 
 @Controller('tokens')
 export class TokensController {

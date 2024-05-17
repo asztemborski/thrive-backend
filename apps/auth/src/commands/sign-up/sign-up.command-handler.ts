@@ -1,26 +1,17 @@
 import { Inject } from '@nestjs/common';
-import { CommandHandler, ICommand, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { ConfigService } from '@nestjs/config';
 
-import { USER_REPOSITORY, VALUE_HASHER } from '../auth.di-tokens';
-import { IValueHasher, IUserRepository } from '../contracts';
+import { USER_REPOSITORY, VALUE_HASHER } from '../../auth.di-tokens';
+import { IValueHasher, IUserRepository } from '../../contracts';
 import {
   EmailAlreadyInUseException,
   InvalidEmailProviderException,
   UsernameAlreadyInUseException,
-} from '../exceptions';
-import { User } from '../domain/entities/user.entity';
-import { EMAIL_CONFIG_TOKEN, EmailConfig } from '../config';
-
-export class SignUpCommand implements ICommand {
-  readonly email: string;
-  readonly username: string;
-  readonly password: string;
-
-  constructor(properties: SignUpCommand) {
-    Object.assign(this, properties);
-  }
-}
+} from '../../exceptions';
+import { User } from '../../domain/entities/user.entity';
+import { EMAIL_CONFIG_TOKEN, EmailConfig } from '../../config';
+import { SignUpCommand } from './sign-up.command';
 
 @CommandHandler(SignUpCommand)
 export class SignUpCommandHandler implements ICommandHandler<SignUpCommand> {

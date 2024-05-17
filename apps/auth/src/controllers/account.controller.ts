@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
-import { SignUpCommand } from '../commands/sign-up.command';
 import { SignUpRequestDto } from '../dtos';
+import { SignUpCommand } from '../commands/sign-up';
 
 @Controller('account')
 export class AccountController {

@@ -10,6 +10,7 @@
   "dependencies": {
     "@nestjs/cqrs": "^10.2.7",
     "@nestjs/jwt": "^10.2.0",
+    "@nestjs/testing": "^10.0.0",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.4",
     "bcryptjs": "^2.4.3",

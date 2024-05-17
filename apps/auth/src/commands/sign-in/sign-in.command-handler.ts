@@ -1,20 +1,12 @@
-import { CommandHandler, ICommand, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
-import { TOKENS_SERVICE, USER_REPOSITORY, VALUE_HASHER } from '../auth.di-tokens';
-import { IValueHasher, ITokensService, IUserRepository } from '../contracts';
-import { InvalidCredentialsException } from '../exceptions';
-import { AuthTokensDto } from '../dtos';
-
-export class SignInCommand implements ICommand {
-  readonly email: string;
-  readonly password: string;
-
-  constructor(properties: SignInCommand) {
-    Object.assign(this, properties);
-  }
-}
+import { TOKENS_SERVICE, USER_REPOSITORY, VALUE_HASHER } from '../../auth.di-tokens';
+import { IValueHasher, ITokensService, IUserRepository } from '../../contracts';
+import { InvalidCredentialsException } from '../../exceptions';
+import { AuthTokensDto } from '../../dtos';
+import { SignInCommand } from './sign-in.command';
 
 @CommandHandler(SignInCommand)
 export class SignInCommandHandler implements ICommandHandler<SignInCommand> {

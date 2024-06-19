@@ -56,3 +56,6 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 /apps/auth/node_modules/
 /apps/auth/drizzle.config.ts
+/apps/notifications/node_modules/
+/apps/identity/node_modules/
+/apps/identity/drizzle.config.ts

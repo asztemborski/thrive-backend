@@ -11,7 +11,7 @@ export const validationPipeConfig: ValidationPipeOptions = {
         statusCode: 400,
         title: 'Some validation errors have occurred.',
         errors: errors.flatMap((error) =>
-          Object.values(error.constraints).flatMap((constraint) => [
+          Object.values(error.constraints || {}).flatMap((constraint) => [
             new ApiError({
               path: error.property,
               message: constraint[0].toUpperCase() + constraint.slice(1),

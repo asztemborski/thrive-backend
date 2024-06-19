@@ -5,8 +5,8 @@ export type DatabaseSchema = { [key: string]: unknown };
 
 export type PostgresConfig = Options<{ [key: string]: PostgresType }>;
 
-export class DatabaseConfig {
-  readonly connectionUrl?: string = '';
+export interface DatabaseConfig {
+  readonly connectionUrl?: string;
   readonly connectionConfig?: PostgresConfig;
   readonly options?: DrizzleConfig<DatabaseSchema>;
 }

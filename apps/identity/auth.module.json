@@ -1,0 +1,12 @@
+{
+  "accessTokenSecretKey": "${ACCESS_TOKEN_SECRET_KEY}",
+  "accessTokenExpirationTime": "15m",
+  "refreshTokenSecretKey": "${REFRESH_TOKEN_SECRET_KEY}",
+  "refreshTokenExpirationTime": "7d",
+  "redis": {
+    "port": "${REDIS_PORT}",
+    "host": "${REDIS_HOST}",
+    "username": "${REDIS_USERNAME}",
+    "password": "${REDIS_PASSWORD}"
+  }
+}

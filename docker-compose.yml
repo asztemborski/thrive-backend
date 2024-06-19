@@ -2,13 +2,26 @@ services:
   db:
     image: postgres
     restart: always
-    environment:
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - .env
     container_name: postgres-db
     ports:
       - '5432:5432'
     networks:
       - backend
+  redis:
+    image: redis/redis-stack
+    container_name: redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - /var/lib/redis
+    networks:
+      - backend
+    environment:
+      REDIS_ARGS: "--requirepass ${REDIS_PASSWORD} --user ${REDIS_USERNAME} on >${REDIS_PASSWORD} ~* allcommands --user default off nopass nocommands"
+    env_file:
+      - .env
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -38,16 +51,16 @@ services:
     ports:
       - '3100:3100'
     depends_on:
-      - auth-service
+      - identity-service
     networks:
       - backend
-  auth-service:
-    container_name: auth-service
+  identity-service:
+    container_name: identity-service
     build:
       context: .
-      dockerfile: apps/auth/Dockerfile
+      dockerfile: apps/identity/Dockerfile
       target: development
-    command: pnpm run start:dev auth
+    command: pnpm run start:dev identity
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -57,7 +70,24 @@ services:
       - backend
     env_file:
       - .env
-      - ${AUTH_ENV}
+      - ${IDENTITY_ENV}
+    volumes:
+      - .:/usr/src/app
+  notifications-service:
+    container_name: notifications-service
+    build:
+      context: .
+      dockerfile: apps/notifications/Dockerfile
+      target: development
+    command: pnpm run start:dev notifications
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - backend
+    env_file:
+      - .env
+      - ${NOTIFICATIONS_ENV}
     volumes:
       - .:/usr/src/app
 

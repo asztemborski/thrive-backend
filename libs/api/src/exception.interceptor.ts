@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  CallHandler,
-  ExecutionContext,
-  NestInterceptor,
-} from '@nestjs/common';
+import { BadRequestException, CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { rethrow } from '@nestjs/core/helpers/rethrow';
 import { catchError, Observable } from 'rxjs';
 
@@ -22,10 +17,7 @@ const createErrorApiResponse = (error: ExceptionBase) => {
 };
 
 export class ExceptionInterceptor implements NestInterceptor {
-  intercept(
-    context: ExecutionContext,
-    next: CallHandler<any>,
-  ): Observable<unknown> | Promise<Observable<unknown>> {
+  intercept(context: ExecutionContext, next: CallHandler<any>): Observable<unknown> | Promise<Observable<unknown>> {
     return next.handle().pipe(
       catchError((error) => {
         if (error instanceof ExceptionBase) {

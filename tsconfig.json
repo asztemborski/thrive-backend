@@ -12,11 +12,12 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "noImplicitAny": true,
     "strict": true,
     "noImplicitOverride": true,
     "strictBindCallApply": false,
+    "strictPropertyInitialization": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
@@ -50,6 +51,14 @@
       ],
       "@libs/utilities/*": [
         "libs/utilities/src/*"
+      ],
+      "@libs/redis": [
+        "libs/redis/src",
+        "libs/redis/src"
+      ],
+      "@libs/redis/*": [
+        "libs/redis/src/*",
+        "libs/redis/src/*"
       ]
     }
   }

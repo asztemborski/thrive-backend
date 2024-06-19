@@ -4,16 +4,19 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/thrive-backend/tsconfig.app.json"
+    "tsConfigPath": "apps/thrive-backend/tsconfig.app.json",
+    "plugins": [
+      "@nestjs/swagger"
+    ]
   },
   "projects": {
-    "auth": {
+    "identity": {
       "type": "application",
-      "root": "apps/auth",
+      "root": "apps/identity",
       "entryFile": "main",
-      "sourceRoot": "apps/auth/src",
+      "sourceRoot": "apps/identity/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/auth/tsconfig.app.json"
+        "tsConfigPath": "apps/identity/tsconfig.app.json"
       }
     },
     "database": {
@@ -61,15 +64,6 @@
         "tsConfigPath": "libs/utilities/tsconfig.lib.json"
       }
     },
-    "config": {
-      "type": "library",
-      "root": "libs/config",
-      "entryFile": "index",
-      "sourceRoot": "libs/config/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/config/tsconfig.lib.json"
-      }
-    },
     "notifications": {
       "type": "application",
       "root": "apps/notifications",
@@ -77,6 +71,15 @@
       "sourceRoot": "apps/notifications/src",
       "compilerOptions": {
         "tsConfigPath": "apps/notifications/tsconfig.app.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
       }
     }
   },

@@ -1,30 +1,52 @@
-import { DynamicModule, Module, Provider } from '@nestjs/common';
+import { DynamicModule, Global } from '@nestjs/common';
 
 import { DatabaseService } from '@libs/database/database.service';
+import { DATABASE_CLIENT } from '@libs/database/database.di-tokens';
+import {
+  ASYNC_OPTIONS_TYPE,
+  ConfigurableModuleClass,
+  MODULE_OPTIONS_TOKEN,
+  OPTIONS_TYPE,
+} from '@libs/database/database-module.options';
 import { DatabaseConfig } from '@libs/database/database.config';
-import { DATABASE_CLIENT, DATABASE_CONFIG } from '@libs/database/database.di-tokens';
 
-const clientProvider: Provider = {
-  provide: DATABASE_CLIENT,
-  useFactory: async (databaseService: DatabaseService) => databaseService.getClient(),
-  inject: [DatabaseService],
-};
+@Global()
+export class DatabaseModule extends ConfigurableModuleClass {
+  static forRoot(options: typeof OPTIONS_TYPE): DynamicModule {
+    const { providers = [], exports = [], ...rest } = super.register(options);
 
-@Module({
-  providers: [DatabaseService, clientProvider],
-  exports: [DatabaseService, clientProvider],
-})
-export class DatabaseModule {
-  static forRoot(config: DatabaseConfig): DynamicModule {
-    const configProvider: Provider = {
-      provide: DATABASE_CONFIG,
-      useValue: config,
-    };
+    const databaseProviders = [
+      DatabaseService,
+      {
+        provide: DATABASE_CLIENT,
+        useFactory: (databaseService: DatabaseService) => databaseService.getClient(options),
+        inject: [DatabaseService],
+      },
+    ];
 
     return {
-      module: DatabaseModule,
-      providers: [configProvider],
-      exports: [configProvider],
+      ...rest,
+      providers: [...providers, ...databaseProviders],
+      exports: [...exports, DATABASE_CLIENT],
+    };
+  }
+
+  static forRootAsync(options: typeof ASYNC_OPTIONS_TYPE): DynamicModule {
+    const { providers = [], exports = [], ...rest } = super.registerAsync(options);
+
+    const databaseAsyncProviders = [
+      DatabaseService,
+      {
+        provide: DATABASE_CLIENT,
+        useFactory: (databaseService: DatabaseService, config: DatabaseConfig) => databaseService.getClient(config),
+        inject: [DatabaseService, MODULE_OPTIONS_TOKEN],
+      },
+    ];
+
+    return {
+      ...rest,
+      providers: [...providers, ...databaseAsyncProviders],
+      exports: [...exports, DATABASE_CLIENT],
     };
   }
 }

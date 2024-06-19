@@ -24,14 +24,17 @@
     "@nestjs/event-emitter": "^2.0.4",
     "@nestjs/microservices": "^10.3.8",
     "@nestjs/platform-express": "^10.0.0",
-    "@nestjs/platform-fastify": "^10.3.8",
+    "@nestjs/swagger": "^7.3.1",
     "amqp-connection-manager": "^4.1.14",
-    "class-validator": "^0.14.1",
+    "class-validator": "^0.14.0",
     "drizzle-orm": "^0.30.9",
+    "ioredis": "^5.4.1",
+    "nest-typed-config": "^2.9.3",
     "postgres": "^3.4.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "class-transformer": "^0.5.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -83,7 +86,9 @@
       "^@libs/exceptions(|/.*)$": "<rootDir>/libs/exceptions/src/$1",
       "^@libs/ddd(|/.*)$": "<rootDir>/libs/ddd/src/$1",
       "^@libs/utilities(|/.*)$": "<rootDir>/libs/utilities/src/$1",
-      "^@libs/config(|/.*)$": "<rootDir>/libs/config/src/$1"
+      "^@libs/config(|/.*)$": "<rootDir>/libs/config/src/$1",
+      "^@libs/typed-config(|/.*)$": "<rootDir>/libs/typed-config/src/$1",
+      "^@libs/redis(|/.*)$": "<rootDir>/libs/redis/src/$1"
     }
   }
 }

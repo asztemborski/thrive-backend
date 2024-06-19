@@ -1,10 +1,9 @@
 export class ExceptionBase extends Error {
-  readonly code: string = 'Thrive.Exception';
+  readonly code: string;
   protected constructor(message: string, code: string | undefined) {
     super(message);
     this.message = message;
     Error.captureStackTrace(this, this.constructor);
-
-    if (code) this.code = code;
+    this.code = code ?? 'Thrive.Exception';
   }
 }

@@ -1,0 +1,25 @@
+{
+  "name": "@thrive/identity",
+  "version": "1.0.0",
+  "description": "Identity service for thrive app",
+  "author": "Igor Asztemborski",
+  "main": "index.js",
+  "scripts": {
+    "generate": "drizzle-kit generate:pg"
+  },
+  "dependencies": {
+    "@nestjs/cqrs": "^10.2.7",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/testing": "^10.0.0",
+    "amqp-connection-manager": "^4.1.14",
+    "amqplib": "^0.10.4",
+    "bcryptjs": "^2.4.3",
+    "ms": "3.0.0-canary.1",
+    "passport-jwt": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/passport-jwt": "^4.0.1",
+    "drizzle-kit": "^0.20.18"
+  }
+}

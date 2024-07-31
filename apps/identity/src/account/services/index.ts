@@ -7,6 +7,8 @@ import { ValueHasher } from './value-hasher';
 export * from './account-mapper';
 export * from './value-hasher';
 
+export const RABBITMQ_CLIENT = Symbol('__IDENTITY_RABBITMQ_CLIENT__');
+
 export const serviceProviders: Provider[] = [
   {
     provide: IAccountMapper,

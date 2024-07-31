@@ -9,6 +9,8 @@ services:
       - '5432:5432'
     networks:
       - backend
+    labels:
+      - "traefik.enable=false"
   redis:
     image: redis/redis-stack
     container_name: redis
@@ -22,6 +24,8 @@ services:
       REDIS_ARGS: "--requirepass ${REDIS_PASSWORD} --user ${REDIS_USERNAME} on >${REDIS_PASSWORD} ~* allcommands --user default off nopass nocommands"
     env_file:
       - .env
+    labels:
+      - "traefik.enable=false"
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -43,17 +47,22 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-  nginx:
-    container_name: nginx
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
+    labels:
+      - "traefik.enable=false"
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:3100"
     ports:
-      - '3100:3100'
-    depends_on:
-      - identity-service
+      - "3100:3100"
+      - "8080:8080"
     networks:
       - backend
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
   identity-service:
     container_name: identity-service
     build:
@@ -64,6 +73,8 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+      traefik:
+        condition: service_started
     ports:
       - '3101:3101'
     networks:
@@ -73,6 +84,12 @@ services:
       - ${IDENTITY_ENV}
     volumes:
       - .:/usr/src/app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.identity.rule=PathPrefix(`/identity`)"
+      - "traefik.http.services.identity.loadbalancer.server.port=3101"
+      - "traefik.http.routers.identity.middlewares=stripprefix"
+      - "traefik.http.middlewares.stripprefix.stripprefix.prefixes=/identity"
   notifications-service:
     container_name: notifications-service
     build:

@@ -64,15 +64,6 @@
         "tsConfigPath": "libs/utilities/tsconfig.lib.json"
       }
     },
-    "notifications": {
-      "type": "application",
-      "root": "apps/notifications",
-      "entryFile": "main",
-      "sourceRoot": "apps/notifications/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/notifications/tsconfig.app.json"
-      }
-    },
     "redis": {
       "type": "library",
       "root": "libs/redis",
@@ -80,6 +71,15 @@
       "sourceRoot": "libs/redis/src",
       "compilerOptions": {
         "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    },
+    "notifications": {
+      "type": "application",
+      "root": "apps/notifications",
+      "entryFile": "main",
+      "sourceRoot": "apps/notifications/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/notifications/tsconfig.app.json"
       }
     }
   },

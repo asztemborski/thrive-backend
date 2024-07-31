@@ -1,4 +1,5 @@
 {
+  "emailVerificationUrl": "en/auth/confirm-email",
   "database": {
     "port": "${POSTGRES_PORT}",
     "host": "${POSTGRES_HOST}",

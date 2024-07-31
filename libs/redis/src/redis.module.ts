@@ -1,4 +1,4 @@
-import { DynamicModule, Module, Provider } from '@nestjs/common';
+import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
 import {
   ASYNC_OPTIONS_TYPE,
   ConfigurableModuleClass,
@@ -10,6 +10,7 @@ import { RedisService } from '@libs/redis/redis.service';
 import { REDIS_CLIENT } from '@libs/redis/redis.di-tokens';
 import { RedisOptions } from 'ioredis';
 
+@Global()
 @Module({})
 export class RedisModule extends ConfigurableModuleClass {
   static forRoot(options: typeof OPTIONS_TYPE): DynamicModule {

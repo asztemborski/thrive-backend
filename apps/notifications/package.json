@@ -1,0 +1,19 @@
+{
+  "name": "@thrive/notifications",
+  "version": "1.0.0",
+  "description": "Notifications service for thrive app",
+  "author": "Igor Asztemborski",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "eta": "^3.4.0",
+    "nodemailer": "^6.9.14"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.15"
+  }
+}

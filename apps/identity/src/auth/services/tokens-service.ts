@@ -1,21 +1,19 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import Redis from 'ioredis';
 import ms from 'ms';
+import Redis from 'ioredis';
+import { v4 as uuid } from 'uuid';
 
+import { REDIS_CLIENT } from '@libs/redis/redis.di-tokens';
 import { Account } from '../../account/domain/account.entity';
 import { ITokenService } from '../contracts';
 import { AuthTokensDto } from '../dtos';
 import { AuthConfig } from '../config/auth.config';
-import { REDIS_CLIENT } from '@libs/redis/redis.di-tokens';
-import { IAccountRepository } from '../../account/contracts';
-import { UnauthorizedException } from '../exceptions';
 
 @Injectable()
 export class TokensService implements ITokenService {
   constructor(
     @Inject(REDIS_CLIENT) private readonly redis: Redis,
-    @Inject(IAccountRepository) private readonly accountRepository: IAccountRepository,
     private readonly jwtService: JwtService,
     private readonly config: AuthConfig,
   ) {}
@@ -43,19 +41,11 @@ export class TokensService implements ITokenService {
     return { accessToken, refreshToken };
   }
 
-  async refreshAccess(token: string): Promise<AuthTokensDto> {
-    const accountId = await this.redis.getdel(token);
+  async generateEmailVerificationToken(account: Account): Promise<string> {
+    const emailVerificationTokenExpiration = ms(this.config.emailVerificationTokenExpirationTime);
+    const token = uuid();
 
-    if (!accountId) {
-      throw new UnauthorizedException();
-    }
-
-    const account = await this.accountRepository.getById(accountId);
-
-    if (!account) {
-      throw new UnauthorizedException();
-    }
-
-    return this.generateAccess(account);
+    await this.redis.set(`email-verification-${token}`, account.id, 'PX', emailVerificationTokenExpiration);
+    return token;
   }
 }

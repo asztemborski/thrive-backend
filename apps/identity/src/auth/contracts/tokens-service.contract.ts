@@ -5,5 +5,5 @@ export const ITokenService = Symbol('__IDENTITY_TOKEN_SERVICE__');
 
 export interface ITokenService {
   generateAccess(account: Account): Promise<AuthTokensDto>;
-  refreshAccess(token: string): Promise<AuthTokensDto>;
+  generateEmailVerificationToken(account: Account): Promise<string>;
 }

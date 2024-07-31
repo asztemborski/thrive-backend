@@ -27,7 +27,7 @@ export class Account extends AggregateRoot<AccountProperties> {
     });
   }
 
-  confirmEmail(): void {
+  confirmEmailAddress(): void {
     if (this.email.isConfirmed) {
       throw new EmailAlreadyConfirmedException();
     }

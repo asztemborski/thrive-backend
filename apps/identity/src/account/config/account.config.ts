@@ -1,9 +1,10 @@
 import { Allow, IsArray, IsDefined, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { DatabaseConfig } from './database.config';
 import { fileLoader, TypedConfigModuleOptions } from 'nest-typed-config';
 import * as path from 'node:path';
 import * as process from 'node:process';
+
+import { DatabaseConfig } from './database.config';
 
 export class AccountConfig {
   @Type(() => DatabaseConfig)
@@ -15,6 +16,10 @@ export class AccountConfig {
   @IsString({ each: true })
   @Allow()
   readonly bannedEmailProviders: string[];
+
+  @IsString()
+  @Allow()
+  readonly emailVerificationUrl: string;
 }
 
 export const configOptions: TypedConfigModuleOptions = {

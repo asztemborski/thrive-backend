@@ -1,5 +1,6 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { ClientProxy } from '@nestjs/microservices';
 
 import { SignUpCommand } from './sign-up.command';
 import { IAccountRepository, IValueHasher } from '../../contracts';
@@ -10,13 +11,21 @@ import {
   UsernameAlreadyInUseException,
 } from '../../exceptions';
 import { Account } from '../../domain/account.entity';
+import { ITokenService } from '../../../auth/contracts';
+import { IdentityConfig } from '../../../config';
+import { RABBITMQ_CLIENT } from '../../services';
 
 @CommandHandler(SignUpCommand)
 export class SignUpCommandHandler implements ICommandHandler<SignUpCommand> {
+  private readonly logger = new Logger(SignUpCommandHandler.name);
+
   constructor(
     @Inject(IAccountRepository) private readonly accountRepository: IAccountRepository,
     @Inject(IValueHasher) private readonly valueHasher: IValueHasher,
+    @Inject(ITokenService) private readonly tokenService: ITokenService,
+    @Inject(RABBITMQ_CLIENT) private readonly rabbitmqClient: ClientProxy,
     private readonly config: AccountConfig,
+    private readonly identityConfig: IdentityConfig,
   ) {}
 
   async execute(command: SignUpCommand): Promise<void> {
@@ -39,5 +48,17 @@ export class SignUpCommandHandler implements ICommandHandler<SignUpCommand> {
     const hashedPassword = await this.valueHasher.hash(command.password);
     const account = Account.create({ ...command, password: hashedPassword });
     await this.accountRepository.insert(account);
+
+    this.logger.log(`Created new account with email address: ${account.email.address}`);
+
+    const emailVerificationToken = await this.tokenService.generateEmailVerificationToken(account);
+    const { frontendUrl } = this.identityConfig;
+    const { emailVerificationUrl } = this.config;
+
+    this.rabbitmqClient.emit('user_created', {
+      username: account.username,
+      email: account.email.address,
+      url: `${frontendUrl}/${emailVerificationUrl}/${emailVerificationToken}`,
+    });
   }
 }

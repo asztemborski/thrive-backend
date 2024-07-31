@@ -7,4 +7,5 @@ export interface IAccountRepository {
   getByEmail(email: string): Promise<Account | undefined>;
   insert(account: Account): Promise<void>;
   isUnique(email: string, username: string): Promise<[emailUnique: boolean, usernameUnique: boolean]>;
+  update(account: Account): Promise<void>;
 }

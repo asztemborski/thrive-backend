@@ -1,0 +1,13 @@
+{
+  "rabbitmq": {
+    "url": "${RABBITMQ_URL}",
+    "queue": "${IDENTITY_QUEUE}"
+  },
+  "redis": {
+    "port": "${REDIS_PORT}",
+    "host": "${REDIS_HOST}",
+    "username": "${REDIS_USERNAME}",
+    "password": "${REDIS_PASSWORD}"
+  },
+  "frontendUrl": "http://localhost:3000"
+}

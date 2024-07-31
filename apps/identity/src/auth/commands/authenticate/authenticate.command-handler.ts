@@ -18,7 +18,7 @@ export class AuthenticateCommandHandler implements ICommandHandler<AuthenticateC
   async execute(command: AuthenticateCommand): Promise<AuthTokensDto> {
     const account = await this.accountRepository.getByEmail(command.email);
 
-    if (!account) {
+    if (!account || !account.email.isConfirmed) {
       throw new UnauthorizedException();
     }
 

@@ -1,10 +1,9 @@
-import { Allow, IsDefined, IsString, ValidateNested } from 'class-validator';
+import { Allow, IsString } from 'class-validator';
 import { fileLoader, TypedConfigModuleOptions } from 'nest-typed-config';
+import { StringValue } from 'ms';
+
 import * as path from 'node:path';
 import * as process from 'node:process';
-import { StringValue } from 'ms';
-import { Type } from 'class-transformer';
-import { RedisConfig } from './redis.config';
 
 export class AuthConfig {
   @IsString()
@@ -23,10 +22,9 @@ export class AuthConfig {
   @Allow()
   readonly refreshTokenExpirationTime: StringValue;
 
-  @Type(() => RedisConfig)
-  @ValidateNested()
-  @IsDefined()
-  readonly redis: RedisConfig;
+  @IsString()
+  @Allow()
+  readonly emailVerificationTokenExpirationTime: StringValue;
 }
 
 export const configOptions: TypedConfigModuleOptions = {

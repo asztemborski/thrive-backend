@@ -42,4 +42,11 @@ export class AccountRepository implements IAccountRepository {
 
     return account ? [account.emailAddress !== email, account.username !== username] : [true, true];
   }
+
+  async update(account: Account): Promise<void> {
+    await this.database
+      .update(accounts)
+      .set(this.accountMapper.toPersistence(account))
+      .where(eq(accounts.id, account.id));
+  }
 }

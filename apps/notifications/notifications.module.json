@@ -1,0 +1,16 @@
+{
+  "rabbitmq": {
+    "url": "${RABBITMQ_URL}",
+    "queue": "${IDENTITY_QUEUE}"
+  },
+  "mail": {
+    "host": "email-smtp.us-east-1.amazonaws.com",
+    "port": 587,
+    "displayName": "Thrive",
+    "mail": "${SMTP_MAIL}",
+    "auth": {
+      "user": "${SMTP_USER}",
+      "pass": "${SMTP_PASSWORD}"
+    }
+  }
+}

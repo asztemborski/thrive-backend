@@ -1,5 +1,6 @@
 {
   "emailVerificationUrl": "en/auth/confirm-email",
+  "emailVerificationDisabled": false,
   "database": {
     "port": "${POSTGRES_PORT}",
     "host": "${POSTGRES_HOST}",

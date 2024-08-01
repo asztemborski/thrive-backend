@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { REDIS_CLIENT } from '@libs/redis/redis.di-tokens';
 import { Account } from '../../account/domain/account.entity';
 import { ITokenService } from '../contracts';
-import { AuthTokensDto } from '../dtos';
+import { AuthTokensDto, UserClaimsDto } from '../dtos';
 import { AuthConfig } from '../config/auth.config';
 
 @Injectable()
@@ -36,7 +36,7 @@ export class TokensService implements ITokenService {
     });
 
     const refreshTokenExpiration = ms(this.config.refreshTokenExpirationTime);
-    await this.redis.set(refreshToken, account.id, 'PX', refreshTokenExpiration);
+    await this.redis.set(`${account.id}-${refreshToken}`, account.id, 'PX', refreshTokenExpiration);
 
     return { accessToken, refreshToken };
   }
@@ -47,5 +47,27 @@ export class TokensService implements ITokenService {
 
     await this.redis.set(`email-verification-${token}`, account.id, 'PX', emailVerificationTokenExpiration);
     return token;
+  }
+
+  async revokeRefreshToken(token: string): Promise<string | null> {
+    const key = await this.redis.keys(`*-*-*-*-*-${token}`);
+
+    if (key.length <= 0) return null;
+
+    return this.redis.getdel(key[0]);
+  }
+
+  async revokeAllRefreshTokens(accountId: string): Promise<void> {
+    const refreshTokens = await this.redis.keys(`${accountId}-*`);
+
+    if (refreshTokens.length <= 0) return;
+
+    await this.redis.del(...refreshTokens);
+  }
+
+  async verify(token: string): Promise<UserClaimsDto> {
+    return this.jwtService.verifyAsync(token, {
+      secret: this.config.accessTokenSecretKey,
+    });
   }
 }

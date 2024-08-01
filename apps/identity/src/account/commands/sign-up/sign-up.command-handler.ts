@@ -51,6 +51,14 @@ export class SignUpCommandHandler implements ICommandHandler<SignUpCommand> {
 
     this.logger.log(`Created new account with email address: ${account.email.address}`);
 
+    if (this.config.emailVerificationDisabled) {
+      account.confirmEmailAddress();
+      await this.accountRepository.update(account);
+      return this.logger.warn(
+        `Email verification disabled. Skipped verification process for user: ${account.email.address}`,
+      );
+    }
+
     const emailVerificationToken = await this.tokenService.generateEmailVerificationToken(account);
     const { frontendUrl } = this.identityConfig;
     const { emailVerificationUrl } = this.config;

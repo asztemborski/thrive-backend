@@ -1,4 +1,4 @@
-import { Allow, IsArray, IsDefined, IsString, ValidateNested } from 'class-validator';
+import { Allow, IsArray, IsBoolean, IsDefined, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { fileLoader, TypedConfigModuleOptions } from 'nest-typed-config';
 import * as path from 'node:path';
@@ -20,6 +20,11 @@ export class AccountConfig {
   @IsString()
   @Allow()
   readonly emailVerificationUrl: string;
+
+  @Type(() => Boolean)
+  @IsBoolean()
+  @Allow()
+  readonly emailVerificationDisabled: boolean;
 }
 
 export const configOptions: TypedConfigModuleOptions = {

@@ -1,5 +1,5 @@
 import { ICommand } from '@nestjs/cqrs';
 
-export class RefreshCommand implements ICommand {
+export class LogoutCommand implements ICommand {
   constructor(readonly refreshToken: string) {}
 }

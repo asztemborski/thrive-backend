@@ -53,9 +53,7 @@ services:
     image: traefik:v2.10
     container_name: traefik
     command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:3100"
+      - "--configFile=/etc/traefik/traefik.yml"
     ports:
       - "3100:3100"
       - "8080:8080"
@@ -63,6 +61,8 @@ services:
       - backend
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/etc/traefik/traefik.yml"
+      - "./traefik_dynamic.yml:/etc/traefik/traefik_dynamic.yml"
   identity-service:
     container_name: identity-service
     build:
@@ -84,12 +84,6 @@ services:
       - ${IDENTITY_ENV}
     volumes:
       - .:/usr/src/app
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.identity.rule=PathPrefix(`/identity`)"
-      - "traefik.http.services.identity.loadbalancer.server.port=3101"
-      - "traefik.http.routers.identity.middlewares=stripprefix"
-      - "traefik.http.middlewares.stripprefix.stripprefix.prefixes=/identity"
   notifications-service:
     container_name: notifications-service
     build:

@@ -21,15 +21,16 @@ const bootstrap = async (): Promise<void> => {
     .setTitle('Identity service')
     .setDescription('Identity service for thrive application')
     .setVersion('1.0')
+    .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' })
+    .addServer('/identity')
     .build();
 
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('docs', app, swaggerDocument);
 
   app.enableCors({
-    origin: config.frontendUrl,
+    origin: [config.frontendUrl],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
   });
 
   await app.listen(3101);

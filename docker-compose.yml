@@ -75,8 +75,6 @@ services:
         condition: service_healthy
       traefik:
         condition: service_started
-    ports:
-      - '3101:3101'
     networks:
       - backend
     env_file:

@@ -1,23 +1,21 @@
 http:
   routers:
-    identity:
-      rule: "PathPrefix(`/identity`)"
+    identity-private:
+      rule: "PathPrefix(`/identity/v1/private`)"
       service: identity
       entryPoints:
         - web
       middlewares:
-        - stripprefix
+        - stripprefix-identity
         - jwt-auth
 
     identity-public:
-      rule: "Path(`/identity/v1/account/sign-up`) 
-      || Path(`/identity/v1/auth/authenticate`) 
-      || Path(`/identity/v1/auth/forgot-password`)"
+      rule: "PathPrefix(`/identity/v1/public`) || PathPrefix(`/identity/docs`)"
       service: identity
       entryPoints:
         - web
       middlewares:
-        - stripprefix
+        - stripprefix-identity
 
   services:
     identity:
@@ -26,12 +24,12 @@ http:
           - url: "http://identity-service:3101"
 
   middlewares:
-    stripprefix:
+    stripprefix-identity:
       stripPrefix:
         prefixes:
           - "/identity"
     jwt-auth:
       forwardAuth:
-        address: "http://identity-service:3101/v1/auth/validate"
+        address: "http://identity-service:3101/v1/public/auth/validate"
         authResponseHeaders:
           - "x-user"

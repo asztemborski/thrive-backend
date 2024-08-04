@@ -8,7 +8,6 @@ export class LogoutCommandHandler implements ICommandHandler<LogoutCommand> {
   constructor(@Inject(ITokenService) private readonly tokenService: ITokenService) {}
 
   async execute(command: LogoutCommand): Promise<void> {
-    console.log(command.refreshToken);
     await this.tokenService.revokeRefreshToken(command.refreshToken);
   }
 }

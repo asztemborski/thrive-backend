@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+import { Body, Get, Post, Req, Res } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Request, Response } from 'express';
@@ -9,17 +9,17 @@ import { AuthenticateRequestDto, AuthTokensDto, LogoutRequestDto, RefreshRequest
 import { LogoutCommand } from './commands/logout';
 import { LogoutAllCommand } from './commands/logout-all';
 import { ValidateCommand } from './commands/validate';
-import { User, UserPayload } from '@libs/api';
+import { PrivateController, PublicController, User, UserPayload } from '@libs/api';
 
-@Controller({ version: '1', path: 'auth' })
-export class AuthController {
+@PublicController({ version: '1', path: 'auth' })
+export class PublicAuthController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @Get('validate')
   @ApiResponse({ status: 200 })
   @ApiResponse({ status: 401 })
   @ApiOperation({ summary: 'Validates access.', description: `Validates user's access token` })
-  async validate(@Req() request: Request, @Res() response: Response): Promise<void> {
+  async validate(@Req() request: Request, @Res() response: Response) {
     const command = new ValidateCommand(request.headers.authorization);
     const claims = await this.commandBus.execute(command);
     response.setHeader('x-user', JSON.stringify(claims));
@@ -43,6 +43,11 @@ export class AuthController {
     const command = new RefreshCommand(request.refreshToken);
     return this.commandBus.execute(command);
   }
+}
+
+@PrivateController({ version: '1', path: 'auth' })
+export class PrivateAuthController {
+  constructor(private readonly commandBus: CommandBus) {}
 
   @Post('logout')
   @ApiResponse({ status: 200 })

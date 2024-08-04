@@ -4,7 +4,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypedConfigModule } from 'nest-typed-config';
 
 import { DatabaseModule } from '@libs/database';
-import { AccountController } from './account.controller';
+import { PublicAccountController } from './account.controller';
 import { RABBITMQ_CLIENT, serviceProviders } from './services';
 import { repositoryProviders, schema } from './database';
 import { commandHandlers } from './commands';
@@ -39,7 +39,7 @@ import { AuthModule } from '../auth/auth.module';
     CqrsModule,
     forwardRef(() => AuthModule),
   ],
-  controllers: [AccountController],
+  controllers: [PublicAccountController],
   providers: [...serviceProviders, ...repositoryProviders, ...commandHandlers],
   exports: [...repositoryProviders, ...serviceProviders],
 })

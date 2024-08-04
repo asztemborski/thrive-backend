@@ -17,7 +17,7 @@ const createErrorApiResponse = (error: ExceptionBase) => {
 };
 
 export class ExceptionInterceptor implements NestInterceptor {
-  intercept(context: ExecutionContext, next: CallHandler<any>): Observable<unknown> | Promise<Observable<unknown>> {
+  intercept(_: ExecutionContext, next: CallHandler): Observable<unknown> | Promise<Observable<unknown>> {
     return next.handle().pipe(
       catchError((error) => {
         if (error instanceof ExceptionBase) {

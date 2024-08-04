@@ -13,8 +13,14 @@ export class ValidateCommandHandler implements ICommandHandler<ValidateCommand> 
       throw new UnauthorizedException();
     }
 
+    if (!command.token.startsWith('Bearer ')) {
+      throw new UnauthorizedException();
+    }
+
+    const accessToken = command.token.substring(7);
+
     try {
-      return await this.tokenService.verify(command.token);
+      return await this.tokenService.verify(accessToken);
     } catch (err) {
       throw new UnauthorizedException();
     }

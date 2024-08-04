@@ -35,10 +35,11 @@ export class TokensService implements ITokenService {
       expiresIn: this.config.refreshTokenExpirationTime,
     });
 
+    const accessTokenExpiresAt = new Date().getTime() + ms(this.config.accessTokenExpirationTime);
     const refreshTokenExpiration = ms(this.config.refreshTokenExpirationTime);
     await this.redis.set(`${account.id}-${refreshToken}`, account.id, 'PX', refreshTokenExpiration);
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, expiresAt: accessTokenExpiresAt };
   }
 
   async generateEmailVerificationToken(account: Account): Promise<string> {

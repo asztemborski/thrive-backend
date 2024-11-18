@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Shared.Abstractions"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Shared.Application", "src\Shared\Thrive.Shared.Application\Thrive.Shared.Application.csproj", "{9119D533-06F6-42D2-999E-ED52B8932608}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Shared.Infrastructure", "src\Shared\Thrive.Shared.Infrastructure\Thrive.Shared.Infrastructure.csproj", "{F34DB66F-90D2-4196-9CDC-4480BA8918EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,7 @@ Global
 		{CF7F5C1E-C727-4AC9-B005-FFFB75C8A2D1} = {32734B82-B31C-4969-91D1-CAD381F1B1D4}
 		{9CAA28E0-BFEB-4C18-85FD-ED3D9F430D2D} = {CF7F5C1E-C727-4AC9-B005-FFFB75C8A2D1}
 		{9119D533-06F6-42D2-999E-ED52B8932608} = {CF7F5C1E-C727-4AC9-B005-FFFB75C8A2D1}
+		{F34DB66F-90D2-4196-9CDC-4480BA8918EC} = {CF7F5C1E-C727-4AC9-B005-FFFB75C8A2D1}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9CAA28E0-BFEB-4C18-85FD-ED3D9F430D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -27,5 +30,9 @@ Global
 		{9119D533-06F6-42D2-999E-ED52B8932608}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9119D533-06F6-42D2-999E-ED52B8932608}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9119D533-06F6-42D2-999E-ED52B8932608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34DB66F-90D2-4196-9CDC-4480BA8918EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34DB66F-90D2-4196-9CDC-4480BA8918EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34DB66F-90D2-4196-9CDC-4480BA8918EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34DB66F-90D2-4196-9CDC-4480BA8918EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

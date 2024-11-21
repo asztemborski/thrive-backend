@@ -1,0 +1,6 @@
+﻿services:
+  thrive.bootstrapper:
+    image: thrive.bootstrapper
+    build:
+      context: .
+      dockerfile: src/Bootstrapper/Thrive.Bootstrapper/Dockerfile

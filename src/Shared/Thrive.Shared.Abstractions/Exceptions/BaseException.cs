@@ -6,7 +6,7 @@ public abstract class BaseException : Exception
 {
     public List<ExceptionDetail> ExceptionDetails { get; } = [];
     public HttpStatusCode StatusCode { get; }
-    public string Code { get; init; } = "Thrive.Exception";
+    public string Code { get; } = "Thrive.Exception";
     
     protected BaseException(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
         : base(message)

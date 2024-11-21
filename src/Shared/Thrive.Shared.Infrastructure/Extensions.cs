@@ -106,7 +106,6 @@ public static class Extensions
                     $"module.{pattern}.json", SearchOption.AllDirectories);
         });
 
-
     public static IConfiguration GetSection<T>(this IConfiguration configuration)
     {
         var assemblyName = typeof(T).Assembly.GetName().Name;

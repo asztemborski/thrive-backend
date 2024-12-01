@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Identity.App
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Identity.Api", "src\Modules\Identity\Thrive.Modules.Identity.Api\Thrive.Modules.Identity.Api.csproj", "{74A0476F-2EA9-45F3-950F-5D4AB75F09F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrive.Modules.Identity.Application.UnitTests", "tests\Modules\Identity\Thrive.Modules.Identity.Application.UnitTests\Thrive.Modules.Identity.Application.UnitTests.csproj", "{724BF787-E7A8-4BCD-966C-DECE4E93705A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,7 @@ Global
 		{C6D98229-CE89-40F4-901C-C5983F55D2F1} = {CD7E69ED-2FB1-480B-BB86-018B001E894C}
 		{916CA670-DC2D-44F2-92B7-27226C511401} = {CD7E69ED-2FB1-480B-BB86-018B001E894C}
 		{74A0476F-2EA9-45F3-950F-5D4AB75F09F9} = {CD7E69ED-2FB1-480B-BB86-018B001E894C}
+		{724BF787-E7A8-4BCD-966C-DECE4E93705A} = {A79669CD-2490-4E09-AE24-96B7EDFF107F}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9CAA28E0-BFEB-4C18-85FD-ED3D9F430D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -98,5 +101,9 @@ Global
 		{74A0476F-2EA9-45F3-950F-5D4AB75F09F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74A0476F-2EA9-45F3-950F-5D4AB75F09F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74A0476F-2EA9-45F3-950F-5D4AB75F09F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724BF787-E7A8-4BCD-966C-DECE4E93705A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724BF787-E7A8-4BCD-966C-DECE4E93705A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724BF787-E7A8-4BCD-966C-DECE4E93705A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724BF787-E7A8-4BCD-966C-DECE4E93705A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

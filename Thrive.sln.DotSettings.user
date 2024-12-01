@@ -10,6 +10,12 @@
   &lt;Assembly Path="C:\Users\Igor\.nuget\packages\swashbuckle.aspnetcore.swagger\6.5.0\lib\net7.0\Swashbuckle.AspNetCore.Swagger.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\Igor\AppData\Local\JetBrains\Rider2024.3\resharper-host\temp\Rider\vAny\CoverageData\_Thrive.-367879321\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2a2dcaa7_002D0274_002D45c7_002D9d5b_002Dfe80aae9bf67/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2cc1b70f_002D96f1_002D4924_002D9a08_002De01f494716a3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;tests&amp;gt;\&amp;lt;Modules&amp;gt;\&amp;lt;Identity&amp;gt;\&amp;lt;Thrive.Modules.Identity.Domain.UnitTests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5e14d437_002D4482_002D4284_002D9ab6_002D114db98ac94c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UsernameTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::35C122C7-D86D-414E-B2DE-DB65FF376FE0::net9.0::Thrive.Modules.Identity.Domain.UnitTests.ValueObjects.UsernameTests&lt;/TestId&gt;&#xD;

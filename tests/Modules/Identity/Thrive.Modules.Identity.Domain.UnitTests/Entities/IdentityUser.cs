@@ -12,7 +12,7 @@ public class IdentityUserTests
         var email = new EmailAddress("user@example.com");
         var username = new Username("User123");
         var user = new IdentityUser(email, username, "password123");
-
+        
         Assert.Equal(email, user.Email.Address);
         Assert.Equal(username, user.Username);
         Assert.Equal("password123", user.Password);

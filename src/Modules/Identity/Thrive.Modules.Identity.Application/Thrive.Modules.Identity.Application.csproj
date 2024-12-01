@@ -7,10 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+      <ProjectReference Include="..\..\..\Shared\Thrive.Shared.Application\Thrive.Shared.Application.csproj" />
+      <ProjectReference Include="..\Thrive.Modules.Identity.Domain\Thrive.Modules.Identity.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="MediatR.Contracts" Version="2.0.1"/>
-    </ItemGroup>
 </Project>

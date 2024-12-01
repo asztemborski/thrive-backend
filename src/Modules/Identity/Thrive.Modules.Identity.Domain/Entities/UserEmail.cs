@@ -13,6 +13,8 @@ public sealed class UserEmail
         Address = address;
     }
     
+    private UserEmail() {}
+
     public void ChangeAddress(string newAddress)
     {
         if (Address == newAddress)

@@ -4,3 +4,10 @@
     build:
       context: .
       dockerfile: src/Bootstrapper/Thrive.Bootstrapper/Dockerfile
+  postgres:
+    image: postgres
+    env_file:
+      - .env
+    container_name: postgres-db
+    ports:
+      - '5432:5432'

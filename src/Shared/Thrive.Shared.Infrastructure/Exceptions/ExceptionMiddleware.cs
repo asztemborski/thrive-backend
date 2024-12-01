@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Thrive.Shared.Abstractions.Exceptions;
 
@@ -14,13 +15,15 @@ public sealed class ExceptionMiddleware
     private readonly RequestDelegate _next;
     private readonly IWebHostEnvironment _environment;
     private readonly JsonOptions _jsonOptions;
+    private readonly ILogger<ExceptionMiddleware> _logger;
 
     public ExceptionMiddleware(RequestDelegate next, IWebHostEnvironment environment, 
-        IOptions<JsonOptions> jsonOptions)
+        IOptions<JsonOptions> jsonOptions, ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
         _environment = environment;
         _jsonOptions = jsonOptions.Value;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -45,7 +48,7 @@ public sealed class ExceptionMiddleware
 
         if (exception is BaseException baseException)
         {
-            response.Code = baseException.Code ?? response.Code;
+            response.Code = baseException.Code;
             response.StatusCode = baseException.StatusCode;
             response.Details.AddRange(baseException.ExceptionDetails);
         }
@@ -53,6 +56,7 @@ public sealed class ExceptionMiddleware
         {
             response.Title = "Internal server error.";
             response.StatusCode = HttpStatusCode.InternalServerError;
+            _logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
         }
 
         if (!_environment.IsDevelopment())

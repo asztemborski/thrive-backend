@@ -16,5 +16,6 @@ internal sealed class IdentityModule : IModule
 
     public void Use(IApplicationBuilder app)
     {
+        app.UseInfrastructure();
     }
 }

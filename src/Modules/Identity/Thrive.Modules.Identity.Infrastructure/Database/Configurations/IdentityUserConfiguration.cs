@@ -12,7 +12,7 @@ internal sealed class IdentityUserConfiguration : IEntityTypeConfiguration<Ident
         builder.Property(user => user.Id).HasColumnName("id");
         builder.Property(user => user.Password).HasColumnName("password");
         builder.Property(user => user.IsActive).HasColumnName("is_active");
-        
+
         builder.OwnsOne(user => user.Email, userEmailBuilder =>
         {
             userEmailBuilder.OwnsOne(userEmail => userEmail.Address,

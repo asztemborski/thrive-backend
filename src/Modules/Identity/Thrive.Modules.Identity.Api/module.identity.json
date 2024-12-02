@@ -4,6 +4,14 @@
       "name": "Identity",
       "enabled": true
     },
+    "JwtOptions": {
+      "TokenExpirationInMinutes": 60,
+      "RefreshTokenExpirationInDays": 7,
+      "ValidateIssuerSigningKey": true,
+      "ValidateIssuer": false,
+      "ValidateAudience": false,
+      "ValidateLifetime": true
+    },
     "EmailOptions": {
       "BannedEmailProviders": [
         "0-mail.com",

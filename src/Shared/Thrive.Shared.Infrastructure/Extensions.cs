@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Thrive.Shared.Abstractions.Modules;
 using Thrive.Shared.Infrastructure.Exceptions;
+using Thrive.Shared.Infrastructure.Redis;
 
 namespace Thrive.Shared.Infrastructure;
 
@@ -53,19 +54,19 @@ public static class Extensions
         services.AddMemoryCache();
         services.AddHttpContextAccessor();
 
+        services.AddRedis();
+
         services.AddCors(options => options.AddPolicy("ThriveCorsPolicy", builder =>
         {
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            {
                 builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
-            }
         }));
-        
+
         services.AddControllers().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         });
-        
+
         return services;
     }
 
@@ -82,29 +83,28 @@ public static class Extensions
             reDoc.SpecUrl("/swagger/v1/swagger.json");
             reDoc.DocumentTitle = "Thrive API";
         });
-        
+
         return builder;
     }
 
     public static IWebHostBuilder ConfigureModules(this IWebHostBuilder builder)
-        => builder.ConfigureAppConfiguration((ctx, cfg) =>
+    {
+        return builder.ConfigureAppConfiguration((ctx, cfg) =>
         {
-            foreach (var settings in GetSettings("*"))
-            {
-                cfg.AddJsonFile(settings);
-            }
+            foreach (var settings in GetSettings("*")) cfg.AddJsonFile(settings);
 
             foreach (var settings in GetSettings($"*.{ctx.HostingEnvironment.EnvironmentName}"))
-            {
                 cfg.AddJsonFile(settings);
-            }
 
             return;
 
             IEnumerable<string> GetSettings(string pattern)
-                => Directory.EnumerateFiles(ctx.HostingEnvironment.ContentRootPath,
+            {
+                return Directory.EnumerateFiles(ctx.HostingEnvironment.ContentRootPath,
                     $"module.{pattern}.json", SearchOption.AllDirectories);
+            }
         });
+    }
 
     public static IConfiguration GetSection<T>(this IConfiguration configuration)
     {

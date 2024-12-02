@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 
-
 namespace Thrive.Modules.Identity.Application.Commands.SignUp;
 
 public sealed class SignUpCommandValidator : AbstractValidator<SignUpCommand>
@@ -17,7 +16,7 @@ public sealed class SignUpCommandValidator : AbstractValidator<SignUpCommand>
         RuleFor(request => request.Username)
             .NotEmpty()
             .NotNull();
-        
+
         RuleFor(request => request.ConfirmPassword)
             .NotEmpty()
             .NotNull()

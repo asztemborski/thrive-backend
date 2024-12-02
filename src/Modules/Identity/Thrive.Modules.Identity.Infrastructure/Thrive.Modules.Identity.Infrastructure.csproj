@@ -7,13 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Thrive.Shared.Infrastructure\Thrive.Shared.Infrastructure.csproj" />
-      <ProjectReference Include="..\Thrive.Modules.Identity.Application\Thrive.Modules.Identity.Application.csproj" />
+        <ProjectReference Include="..\..\..\Shared\Thrive.Shared.Infrastructure\Thrive.Shared.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Thrive.Modules.Identity.Application\Thrive.Modules.Identity.Application.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>Thrive.Modules.Identity.Infrastructure.UnitTests</_Parameter1>
         </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0"/>
     </ItemGroup>
 </Project>

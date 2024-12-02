@@ -7,13 +7,16 @@ using Thrive.Modules.Identity.Application.Commands.SignUp;
 namespace Thrive.Modules.Identity.Api.Controllers;
 
 [Controller]
-[Route("[controller]")]
+[Route("user")]
 public sealed class UserController : ControllerBase
 {
     private readonly ISender _sender;
 
-    public UserController(ISender sender) => _sender = sender;
-    
+    public UserController(ISender sender)
+    {
+        _sender = sender;
+    }
+
     [HttpPost("sign-up")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

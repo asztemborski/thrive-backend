@@ -12,12 +12,12 @@ namespace Thrive.Shared.Infrastructure.Exceptions;
 
 public sealed class ExceptionMiddleware
 {
-    private readonly RequestDelegate _next;
     private readonly IWebHostEnvironment _environment;
     private readonly JsonOptions _jsonOptions;
     private readonly ILogger<ExceptionMiddleware> _logger;
+    private readonly RequestDelegate _next;
 
-    public ExceptionMiddleware(RequestDelegate next, IWebHostEnvironment environment, 
+    public ExceptionMiddleware(RequestDelegate next, IWebHostEnvironment environment,
         IOptions<JsonOptions> jsonOptions, ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
@@ -37,7 +37,7 @@ public sealed class ExceptionMiddleware
             await HandleExceptionAsync(context, exception);
         }
     }
-    
+
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         var response = new ExceptionResponse
@@ -59,14 +59,11 @@ public sealed class ExceptionMiddleware
             _logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
         }
 
-        if (!_environment.IsDevelopment())
-        {
-            response.Source = string.Empty;
-        }
-        
+        if (!_environment.IsDevelopment()) response.Source = string.Empty;
+
         context.Response.StatusCode = (int)response.StatusCode;
         context.Response.ContentType = "application/json";
-        
+
         await context.Response.WriteAsync(JsonSerializer.Serialize(response, _jsonOptions.SerializerOptions));
     }
 }

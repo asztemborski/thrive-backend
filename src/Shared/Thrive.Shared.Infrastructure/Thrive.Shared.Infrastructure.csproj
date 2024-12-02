@@ -11,14 +11,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.1.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="7.1.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.1.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.1.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.1.0" />
-        <PackageReference Include="MessagePack" Version="2.5.192" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1"/>
+        <PackageReference Include="StackExchange.Redis" Version="2.8.22"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.1.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="7.1.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.1.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.1.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.1.0"/>
+        <PackageReference Include="MessagePack" Version="2.5.192"/>
     </ItemGroup>
 
 </Project>

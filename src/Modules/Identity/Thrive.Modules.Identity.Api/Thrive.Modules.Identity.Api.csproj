@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Thrive.Modules.Identity.Infrastructure\Thrive.Modules.Identity.Infrastructure.csproj" />
+        <ProjectReference Include="..\Thrive.Modules.Identity.Infrastructure\Thrive.Modules.Identity.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

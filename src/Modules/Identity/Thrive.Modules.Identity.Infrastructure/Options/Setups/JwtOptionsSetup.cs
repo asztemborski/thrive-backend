@@ -1,21 +1,20 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Thrive.Modules.Identity.Application.Options;
 using Thrive.Shared.Infrastructure;
 
 namespace Thrive.Modules.Identity.Infrastructure.Options.Setups;
 
-internal sealed class EmailOptionsSetup : IConfigureOptions<EmailOptions>
+internal sealed class JwtOptionsSetup : IConfigureOptions<JwtOptions>
 {
     private readonly IConfiguration _configuration;
 
-    public EmailOptionsSetup(IConfiguration configuration)
+    public JwtOptionsSetup(IConfiguration configuration)
     {
         _configuration = configuration;
     }
 
-    public void Configure(EmailOptions options)
+    public void Configure(JwtOptions options)
     {
-        _configuration.GetSection<EmailOptions>().Bind(options);
+        _configuration.GetSection<JwtOptions>().Bind(options);
     }
 }

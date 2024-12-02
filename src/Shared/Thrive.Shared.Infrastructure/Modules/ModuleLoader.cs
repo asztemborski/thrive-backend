@@ -17,24 +17,15 @@ public static class ModuleLoader
 
         foreach (var file in files)
         {
-            if (!file.Contains(modulePart))
-            {
-                continue;
-            }
+            if (!file.Contains(modulePart)) continue;
 
             var moduleName = file.Split(modulePart)[1].Split(".")[0].ToLowerInvariant();
             var enabled = configuration.GetValue<bool>($"{moduleName}:module:enabled");
 
-            if (!enabled)
-            {
-                disabledModules.Add(file);
-            }
+            if (!enabled) disabledModules.Add(file);
         }
 
-        foreach (var disabledModule in disabledModules)
-        {
-            files.Remove(disabledModule);
-        }
+        foreach (var disabledModule in disabledModules) files.Remove(disabledModule);
 
         files.ForEach(x => assemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(x))));
 
@@ -42,11 +33,13 @@ public static class ModuleLoader
     }
 
     public static IList<IModule> LoadModules(IEnumerable<Assembly> assemblies)
-        => assemblies
+    {
+        return assemblies
             .SelectMany(x => x.GetTypes())
             .Where(x => typeof(IModule).IsAssignableFrom(x) && !x.IsInterface)
             .OrderBy(x => x.Name)
             .Select(Activator.CreateInstance)
             .Cast<IModule>()
             .ToList();
+    }
 }

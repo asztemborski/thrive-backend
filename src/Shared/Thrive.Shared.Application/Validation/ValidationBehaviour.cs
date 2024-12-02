@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Thrive.Shared.Abstractions.Exceptions;
+using ValidationException = Thrive.Shared.Application.Exceptions.ValidationException;
 
 namespace Thrive.Shared.Application.Validation;
 
@@ -17,10 +18,7 @@ public sealed class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        if (!_validators.Any())
-        {
-            return await next();
-        }
+        if (!_validators.Any()) return await next();
 
         var context = new ValidationContext<TRequest>(request);
 
@@ -33,10 +31,7 @@ public sealed class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior
             .Select(failure => new ExceptionDetail(failure.ErrorCode, failure.PropertyName, failure.ErrorMessage))
             .ToList();
 
-        if (errors.Count != 0)
-        {
-            throw new Exceptions.ValidationException(errors);
-        }
+        if (errors.Count != 0) throw new ValidationException(errors);
 
         return await next();
     }

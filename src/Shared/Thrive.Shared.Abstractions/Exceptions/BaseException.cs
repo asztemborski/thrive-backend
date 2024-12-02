@@ -4,17 +4,13 @@ namespace Thrive.Shared.Abstractions.Exceptions;
 
 public abstract class BaseException : Exception
 {
-    public List<ExceptionDetail> ExceptionDetails { get; } = [];
-    public HttpStatusCode StatusCode { get; }
-    public string Code { get; } = "Thrive.Exception";
-    
     protected BaseException(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
         : base(message)
     {
         StatusCode = statusCode;
     }
-    
-    protected BaseException(string message, IEnumerable<ExceptionDetail> details, 
+
+    protected BaseException(string message, IEnumerable<ExceptionDetail> details,
         HttpStatusCode statusCode = HttpStatusCode.BadRequest) : this(message, statusCode)
     {
         ExceptionDetails.AddRange(details);
@@ -25,4 +21,8 @@ public abstract class BaseException : Exception
     {
         Code = code;
     }
+
+    public List<ExceptionDetail> ExceptionDetails { get; } = [];
+    public HttpStatusCode StatusCode { get; }
+    public string Code { get; } = "Thrive.Exception";
 }
